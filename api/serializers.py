@@ -7,4 +7,13 @@ from models import Shoe
 class ShoeSerializer(ModelSerializer):
     class Meta:
         model = Shoe
-        fields = ('user', 'brand', 'color', 'size', 'price', 'quantity')
+        fields = (
+            'user',
+            'brand',
+            'color',
+            'size',
+            'price',
+            'quantity',
+            'created_at',
+            'updated_at'
+        )
