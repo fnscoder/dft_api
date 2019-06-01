@@ -1,0 +1,260 @@
+#%RAML 1.0
+title: Dafiti API
+baseUri: https://dft_api.herokuapp.com/
+protocols: [ HTTP, HTTPS ]
+mediaType:  application/json
+description: API to Create, Read, Update and Delete (CRUD) shoes.
+version: 1.0.0
+securitySchemes:
+  JWT:
+    description: Authentic this to any method that needs a valid JWT to be set.
+    type: x-{other}
+    describedBy:
+      headers:
+        Authorization:
+            description: X-AuthToken
+            type: string
+            required: true
+      responses:
+        401:
+          description: Authentication problem (JWT not set or expired)
+    settings:
+      roles: []
+types:
+  Auth:
+    type: object
+    discriminator: token
+    properties:
+      token : string
+  Shoe:
+    type: object
+    discriminator: shoe_id
+    properties: 
+      shoe_id: integer
+      user_id: integer
+      brand: string
+      color: string
+      size: integer
+      price: number
+      quantity: integer
+    example:
+      shoe_id: 1
+      user_id: 1
+      brand: "nike"
+      color: "black"
+      size: 40
+      price: 199.90
+      quantity: 5
+/auth/token:
+  post:
+    description: Create a token in the system
+    body:
+      application/json:
+        username:
+          displayName: Username
+          type: string
+          description: Username
+          example: "myusername"
+          required: true
+        password:
+          displayName: Password
+          type: string
+          description: Password
+          example: "myusernamepass"
+          required: true
+    responses:
+      201:
+        body:
+          application/json:
+            example: {"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Im1hcmNlbG8iLCJleHAiOjE1NTg3NjI5NTgsImVtYWlsIjoibWFyY2Vsby5taWxlcmlzQGdtYWlsLmNvbSJ9.XzzOy9yovI2mCLUuIWhAIxkI0XgldBeWgzmqPU3e4RQ"}
+      400:
+        body:
+          application/json:
+            example: {"message": "Unable to log in with provided credentials"}
+/shoes:
+  post:
+    description: Create a shoe in the system.
+    securedBy: JWT
+    body:
+      application/json:
+        properties:
+          brand:
+            displayName: Shoe's brand
+            type: string
+            description: The shoe's brand
+            example: "nike"
+            required: true
+          color:
+            displayName: Shoes's color
+            type: string
+            description: The shoe's color
+            example: "black"
+            required: true
+          size:
+            displayName: Shoe's size
+            type: integer
+            description: The shoe's size
+            example: 40
+            required: true
+          price:
+            displayName: Shoe's price
+            type: number
+            description: The shoe's price
+            example: 199.90
+            required: true
+          quantity:
+            displayName: Shoe's quantity
+            type: integer
+            description: The shoe's quantity
+            example: 5
+            required: true
+        example:
+          brand: "nike"
+          color: "black"
+          size: 40
+          price: 199.90
+          quantity: 5
+    responses:
+      201:
+        body:
+          application/json:
+            example: {"shoe_id": 1, "user_id": 1, "brand": "nike", "color": "black", "size": 40, "price": 199.90, "quantity": 5}
+      401:
+        body:
+          application/json:
+            example: {"message": "Forbidden"}
+  get:
+    description: Retrieve all the shoes.
+    securedBy: JWT
+    responses:
+      200:
+        body:
+          application/json:
+            example: {"shoe_id": 1, "user_id": 1, "brand": "nike", "color": "black", "size": 40, "price": 199.90, "quantity": 5}
+      401:
+        body:
+          application/json:
+            example: {"message": "Forbidden"}
+  /{id}:
+    get:
+      description: Retrieve the data of a specific shoe.
+      securedBy: JWT
+      responses: 
+        200:
+          body:
+            application/json:
+              example: {"shoe_id": 1, "user_id": 1, "brand": "nike", "color": "black", "size": 40, "price": 199.90, "quantity": 5}
+        401:
+          body:
+            application/json:
+              example: {"message": "Forbidden"}
+    put:
+      description: Update the all data of a specific shoe.
+      securedBy: JWT
+      body:
+        application/json:
+          properties:
+            brand:
+              displayName: Shoe's brand
+              type: string
+              description: The shoe's brand
+              example: "adidas"
+              required: true
+            color:
+              displayName: Shoes's color
+              type: string
+              description: The shoe's color
+              example: "white"
+              required: true
+            size:
+              displayName: Shoe's size
+              type: integer
+              description: The shoe's size
+              example: 42
+              required: true
+            price:
+              displayName: Shoe's price
+              type: number
+              description: The shoe's price
+              example: 249.90
+              required: true
+            quantity:
+              displayName: Shoe's quantity
+              type: integer
+              description: The shoe's quantity
+              example: 10
+              required: true
+          example:
+            brand: "adidas"
+            color: "white"
+            size: 42
+            price: 249.90
+            quantity: 10
+      responses: 
+        200:
+          body:
+            application/json:
+              example: {"shoe_id": 1, "user_id": 1, "brand": "adidas", "color": "white", "size": 42, "price": 249.90, "quantity": 10}
+        401:
+          body:
+            application/json:
+              example: {"message": "Forbidden"}
+    patch:
+      description: Update partial data of a specific shoe.
+      securedBy: JWT
+      body:
+        application/json:
+          properties:
+            brand:
+              displayName: Shoe's brand
+              type: string
+              description: The shoe's brand
+              example: "adidas"
+              required: false
+            color:
+              displayName: Shoes's color
+              type: string
+              description: The shoe's color
+              example: "white"
+              required: false
+            size:
+              displayName: Shoe's size
+              type: integer
+              description: The shoe's size
+              example: 42
+              required: false
+            price:
+              displayName: Shoe's price
+              type: number
+              description: The shoe's price
+              example: 249.90
+              required: false
+            quantity:
+              displayName: Shoe's quantity
+              type: integer
+              description: The shoe's quantity
+              example: 10
+              required: false
+          example:
+            quantity: 10
+      responses: 
+        200:
+          body:
+            application/json:
+              example: {"quantity": 10}
+        401:
+          body:
+            application/json:
+              example: {"message": "Forbidden"}
+    delete:
+      description: Delete a specific shoe.
+      securedBy: JWT
+      responses: 
+        200:
+          body:
+            application/json:
+              example: {"message": "Deleted"}
+        401:
+          body:
+            application/json:
+              example: {"message": "Forbidden"}
