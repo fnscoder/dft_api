@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from models import Shoe
+from .models import Shoe
 
 
 class ShoeSerializer(ModelSerializer):
