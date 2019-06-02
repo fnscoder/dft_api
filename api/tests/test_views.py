@@ -17,7 +17,11 @@ class ShoesTest(APITestCase):
         )
         url = reverse("api-jwt-auth")
         response = self.client.post(
-            url, {"username": "dafiti", "password": "dafitipass"}, format="json"
+            url, {
+                "username": "dafiti", 
+                "password": "dafitipass"
+            }, 
+            format="json"
         )
         token = response.data["token"]
         self.client.credentials(HTTP_AUTHORIZATION="JWT " + token)
@@ -54,6 +58,16 @@ class ShoesTest(APITestCase):
 
     def test_get_all_shoes(self):
         self.assertEqual(self.get_all_response.status_code, status.HTTP_200_OK)
+
+    def test_pagination_shoes(self):
+        contents = ("count",
+                    "next",
+                    "previous",
+                    "results",
+                )
+        for content in contents:
+            with self.subTest():
+                self.assertContains(self.get_all_response, content)        
 
     def test_get_one_shoe(self):
         self.assertEqual(self.get_one_response.status_code, status.HTTP_200_OK)
