@@ -10,20 +10,19 @@ from ..models import Shoe
 
 class ShoesTest(APITestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
+        User.objects.create_user(
             username="dafiti",
             email="dafiti@email.com",
             password="dafitipass",
         )
         url = reverse("api-jwt-auth")
         response = self.client.post(
-            url, {"username": "squad5user", "password": "squad5userpass"}, format="json"
+            url, {"username": "dafiti", "password": "dafitipass"}, format="json"
         )
         token = response.data["token"]
         self.client.credentials(HTTP_AUTHORIZATION="JWT " + token)
 
         shoe_data = {
-            "user_id": 1,
             "brand": "nike",
             "color": "white",
             "size": 40,
@@ -32,7 +31,6 @@ class ShoesTest(APITestCase):
         }
 
         new_data = {
-            "user_id": 1,
             "brand": "adidas",
             "color": "black",
             "size": 42,
@@ -43,20 +41,19 @@ class ShoesTest(APITestCase):
         partial_data = {
             "quantity": 10,
         }
-
-        self.post_response = self.client.post("/shoes/", shoe_data, format="json")
-        self.get_response = self.client.get("/shoes/")
-        self.get_one_response = self.client.get("/shoes/1/")
-        self.put_response = self.client.put("/shoes/1/", new_data, format="json")
-        self.patch_response = self.client.patch("/shoes/1/", partial_data, format="json")
-        self.delete_response = self.client.delete("/shoes/1/")
+        
+        self.post_response = self.client.post("/api/shoes/", shoe_data, format="json")
+        self.get_all_response = self.client.get("/api/shoes/")
+        self.get_one_response = self.client.get("/api/shoes/1/")
+        self.put_response = self.client.put("/api/shoes/1/", new_data, format="json")
+        self.patch_response = self.client.patch("/api/shoes/1/", partial_data, format="json")
+        self.delete_response = self.client.delete("/api/shoes/1/")
 
     def test_post_shoes(self):
         self.assertEqual(self.post_response.status_code, status.HTTP_201_CREATED)
-        self.assertTrue(Shoe.objects.exists())
 
     def test_get_all_shoes(self):
-        self.assertEqual(self.get_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.get_all_response.status_code, status.HTTP_200_OK)
 
     def test_get_one_shoe(self):
         self.assertEqual(self.get_one_response.status_code, status.HTTP_200_OK)
@@ -68,4 +65,4 @@ class ShoesTest(APITestCase):
         self.assertEqual(self.patch_response.status_code, status.HTTP_200_OK)
 
     def test_delete_shoe(self):
-        self.assertEqual(self.delete_response.status_code, status.HTTP_200_OK)
+        self.assertEqual(self.delete_response.status_code, status.HTTP_204_NO_CONTENT)
