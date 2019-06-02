@@ -3,12 +3,12 @@ from django.core.exceptions import ValidationError
 
 
 def validate_brand(brand):
-    if type(brand) != str or len(brand) > 20:
+    if len(brand) > 20:
         raise ValidationError("Brand has to be a string with maximum 20 characters.")
 
 
 def validate_color(color):
-    if type(color) != str or len(color) > 20:
+    if len(color) > 20:
         raise ValidationError("Color has to be a string with maximum 20 characters.")
 
 

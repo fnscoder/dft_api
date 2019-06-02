@@ -21,6 +21,7 @@ class ShoeSerializer(ModelSerializer):
     class Meta:
         model = Shoe
         fields = (
+            'id',
             'brand',
             'color',
             'size',
