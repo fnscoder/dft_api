@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Shoe(models.Model):
-    brand = models.CharField('Marca', max_length=100)
+    brand = models.CharField('Marca', max_length=20)
     color = models.CharField('Cor', max_length=20)
     size = models.IntegerField('Tamanho')
     price = models.DecimalField('Preço', decimal_places=2, max_digits=6)
