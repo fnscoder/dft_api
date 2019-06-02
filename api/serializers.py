@@ -8,7 +8,6 @@ class ShoeSerializer(ModelSerializer):
     class Meta:
         model = Shoe
         fields = (
-            'user',
             'brand',
             'color',
             'size',
