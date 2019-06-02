@@ -15,7 +15,8 @@ class ShoeSerializer(ModelSerializer):
     brand = serializers.CharField(validators=[validate_brand])
     color = serializers.CharField(validators=[validate_color])
     size = serializers.IntegerField(validators=[validate_size])
-    price = serializers.DecimalField(validators=[validate_price], decimal_places=2, max_digits=6)
+    price = serializers.DecimalField(
+        validators=[validate_price], decimal_places=2, max_digits=6)
     quantity = serializers.IntegerField(validators=[validate_quantity])
 
     class Meta:

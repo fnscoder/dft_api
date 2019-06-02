@@ -4,12 +4,14 @@ from django.core.exceptions import ValidationError
 
 def validate_brand(brand):
     if len(brand) > 20:
-        raise ValidationError("Brand has to be a string with maximum 20 characters.")
+        raise ValidationError(
+            "Brand has to be a string with maximum 20 characters.")
 
 
 def validate_color(color):
     if len(color) > 20:
-        raise ValidationError("Color has to be a string with maximum 20 characters.")
+        raise ValidationError(
+            "Color has to be a string with maximum 20 characters.")
 
 
 def validate_size(size):
