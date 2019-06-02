@@ -8,13 +8,7 @@ from ..models import Shoe
 
 class ShoeModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="dafiti",
-            email="dafiti@email.com",
-            password="dafitipass",
-        )
         self.obj = Shoe(
-            user_id=self.user.pk,
             brand='nike',
             color='white',
             size=40,
