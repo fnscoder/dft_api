@@ -10,7 +10,7 @@ from .serializers import ShoeSerializer
 
 
 class ShoeView(ListCreateAPIView):
-    queryset = Shoe.objects.all()
+    queryset = Shoe.objects.get_queryset().order_by('id')
     serializer_class = ShoeSerializer
 
 
