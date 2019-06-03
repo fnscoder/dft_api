@@ -39,19 +39,16 @@ class FileUploadView(APIView):
 
             with open('media/shoe.csv', 'r') as data:
                 reader = csv.DictReader(data)
-                
+
                 for l in reader:
-                
                     l['price'] = Decimal(l['cost']) + Decimal(l['profit'])
-                
                     shoe = Shoe(
-                        brand = l['brand'],
-                        color = l['color'],
-                        size = l['size'],
-                        price = l['price'],
-                        quantity = l['quantity'],
+                        brand=l['brand'],
+                        color=l['color'],
+                        size=l['size'],
+                        price=l['price'],
+                        quantity=l['quantity'],
                     )
-                
                     try:
                         shoe.save()
                     except:
