@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
-from .models import Shoe
+from .models import File, Shoe
 from .validators import (
     validate_brand,
     validate_color,
@@ -31,3 +31,9 @@ class ShoeSerializer(ModelSerializer):
             'created_at',
             'updated_at'
         )
+
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = File
+        fields = "__all__"

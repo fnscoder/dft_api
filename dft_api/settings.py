@@ -138,3 +138,6 @@ REST_FRAMEWORK = {
 }
 
 JWT_AUTH = {"JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=300)}
+
+MEDIA_URL =  '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
