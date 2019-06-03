@@ -14,16 +14,11 @@ def validate_color(color):
             "Color has to be a string with maximum 20 characters.")
 
 
-def validate_size(size):
-    if size <= 0 or type(size) != int:
-        raise ValidationError("Size has to be a positive integer number.")
+def validate_number(number):
+    if number <= 0 or type(number) != int:
+        raise ValidationError("Has to be a positive integer number.")
 
 
 def validate_price(price):
     if price <= 0 or type(price) != decimal.Decimal:
         raise ValidationError("Price has to be a positive decimal number.")
-
-
-def validate_quantity(quantity):
-    if quantity <= 0 or type(quantity) != int:
-        raise ValidationError("Quantity has to be a positive integer number.")

@@ -6,18 +6,17 @@ from .validators import (
     validate_brand,
     validate_color,
     validate_price,
-    validate_quantity,
-    validate_size
+    validate_number
 )
 
 
 class ShoeSerializer(ModelSerializer):
     brand = serializers.CharField(validators=[validate_brand])
     color = serializers.CharField(validators=[validate_color])
-    size = serializers.IntegerField(validators=[validate_size])
+    size = serializers.IntegerField(validators=[validate_number])
     price = serializers.DecimalField(
         validators=[validate_price], decimal_places=2, max_digits=6)
-    quantity = serializers.IntegerField(validators=[validate_quantity])
+    quantity = serializers.IntegerField(validators=[validate_number])
 
     class Meta:
         model = Shoe

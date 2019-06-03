@@ -134,10 +134,10 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 10,
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",)
-    
+
 }
 
 JWT_AUTH = {"JWT_EXPIRATION_DELTA": datetime.timedelta(seconds=300)}
 
-MEDIA_URL =  '/media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
