@@ -9,7 +9,7 @@
 1. Clone repository
 2. Create a virtualenv python 3.7
 3. Activate your virtualenv
-4. Install dependencies
+4. Install dependencies (gunicorn and psycopg2 are not required for development instance, only for deploy on heroku)
 5. Configure the instance with .env file
 6. Run the tests
 
